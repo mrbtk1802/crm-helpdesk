@@ -4,30 +4,73 @@
     <title>Help Desk Tickets</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 </head>
-<body class="container mt-4">
-    <h2 class="mb-3">All Tickets</h2>
-    <a href="{{ url_for('new_ticket') }}" class="btn btn-primary mb-3">+ Create New Ticket</a>
-    <table class="table table-bordered">
-        <thead>
-            <tr>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{{ url_for('index') }}">CRM Help Desk</a>
+    <a class="btn btn-outline-light ms-auto" href="{{ url_for('new_ticket') }}">+ New Ticket</a>
+  </div>
+</nav>
+
+<div class="container mt-4">
+    <div class="text-center my-3">
+      <h2 class="display-6">📋 All Support Tickets</h2>
+    </div>
+
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-striped table-hover align-middle">
+            <thead class="table-light">
+              <tr>
                 <th>ID</th>
                 <th>Title</th>
                 <th>Category</th>
                 <th>Priority</th>
                 <th>Status</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for ticket in tickets %}
-            <tr>
+                <th>Created At (UTC)</th>
+                <th style="width: 120px;">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for ticket in tickets %}
+              <tr>
                 <td>{{ ticket.id }}</td>
                 <td>{{ ticket.title }}</td>
                 <td>{{ ticket.category }}</td>
                 <td>{{ ticket.priority }}</td>
-                <td>{{ ticket.status }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+                <td>
+                  {% if ticket.status == 'Closed' %}
+                    <span class="badge text-bg-secondary">Closed</span>
+                  {% else %}
+                    <span class="badge text-bg-success">Open</span>
+                  {% endif %}
+                </td>
+                <td>{{ ticket.created_at.strftime('%Y-%m-%d %H:%M:%S') if ticket.created_at else '' }}</td>
+                <td>
+                  {% if ticket.status != 'Closed' %}
+                    <a href="{{ url_for('close_ticket', id=ticket.id) }}" class="btn btn-sm btn-outline-danger">Close</a>
+                  {% else %}
+                    <button class="btn btn-sm btn-outline-secondary" disabled>Closed</button>
+                  {% endif %}
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+
+        <div class="d-flex justify-content-end">
+          <a href="{{ url_for('new_ticket') }}" class="btn btn-primary">+ Create New Ticket</a>
+        </div>
+      </div>
+    </div>
+
+    <footer class="text-center text-muted mt-4 mb-2">
+      <small>Salesforce-Inspired Help Desk System · Built by Tarun Kumar Bantupalli</small>
+    </footer>
+</div>
+
 </body>
 </html>

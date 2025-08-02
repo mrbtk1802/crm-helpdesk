@@ -31,5 +31,13 @@ def new_ticket():
 
     return render_template('new_ticket.html')
 
+@app.route('/ticket/close/<int:id>')
+def close_ticket(id):
+    ticket = Ticket.query.get_or_404(id)
+    ticket.status = 'Closed'
+    db.session.commit()
+    return redirect(url_for('index'))
+
+
 if __name__ == '__main__':
     app.run(debug=True)

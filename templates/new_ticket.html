@@ -4,32 +4,56 @@
     <title>Create Ticket</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 </head>
-<body class="container mt-4">
-    <h2>Create a New Ticket</h2>
-    <form method="POST">
-        <div class="mb-3">
-            <label class="form-label">Title</label>
-            <input type="text" name="title" class="form-control" required>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{{ url_for('index') }}">CRM Help Desk</a>
+  </div>
+</nav>
+
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-lg-7">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h3 class="h5 mb-3">Create a New Ticket</h3>
+          <form method="POST">
+              <div class="mb-3">
+                  <label class="form-label">Title</label>
+                  <input type="text" name="title" class="form-control" placeholder="Ex: Laptop not turning on" required>
+              </div>
+              <div class="mb-3">
+                  <label class="form-label">Category</label>
+                  <select name="category" class="form-select" required>
+                      <option value="Hardware">Hardware</option>
+                      <option value="Software">Software</option>
+                      <option value="Network">Network</option>
+                      <option value="Other">Other</option>
+                  </select>
+              </div>
+              <div class="mb-3">
+                  <label class="form-label">Priority</label>
+                  <select name="priority" class="form-select" required>
+                      <option value="Low">Low</option>
+                      <option value="Medium">Medium</option>
+                      <option value="High">High</option>
+                  </select>
+              </div>
+              <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-success">Submit Ticket</button>
+                <a href="{{ url_for('index') }}" class="btn btn-secondary">Cancel</a>
+              </div>
+          </form>
         </div>
-        <div class="mb-3">
-            <label class="form-label">Category</label>
-            <select name="category" class="form-control" required>
-                <option value="Hardware">Hardware</option>
-                <option value="Software">Software</option>
-                <option value="Network">Network</option>
-                <option value="Other">Other</option>
-            </select>
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Priority</label>
-            <select name="priority" class="form-control" required>
-                <option value="Low">Low</option>
-                <option value="Medium">Medium</option>
-                <option value="High">High</option>
-            </select>
-        </div>
-        <button type="submit" class="btn btn-success">Submit Ticket</button>
-        <a href="{{ url_for('index') }}" class="btn btn-secondary">Cancel</a>
-    </form>
+      </div>
+
+      <footer class="text-center text-muted mt-3 mb-2">
+        <small>Salesforce-Inspired Help Desk System · Built by Tarun Kumar Bantupalli</small>
+      </footer>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
