@@ -12,8 +12,9 @@ with app.app_context():
 
 @app.route('/')
 def index():
-    tickets = Ticket.query.all()
-    return render_template('index.html', tickets=tickets)
+    open_tickets = Ticket.query.filter_by(status='Open').order_by(Ticket.created_at.desc()).all()
+    closed_tickets = Ticket.query.filter_by(status='Closed').order_by(Ticket.created_at.desc()).all()
+    return render_template('index.html', open_tickets=open_tickets, closed_tickets=closed_tickets)
 
 @app.route('/ticket/new', methods=['GET', 'POST'])
 def new_ticket():
